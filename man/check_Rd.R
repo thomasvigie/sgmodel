@@ -1,0 +1,10 @@
+library(Rd2md)
+
+Rd2markdown("Markovmoments.Rd",outfile="Markovmoments.Rmd")
+Rd2markdown("package_sgmodel.Rd",outfile="package_sgmodel.Rmd")
+Rd2markdown("plot_sgmod.Rd",outfile="plot_sgmod.Rmd")
+Rd2markdown("print.summary_sgmod.Rd",outfile="print.summary_sgmod.Rmd")
+Rd2markdown("print_sgmod.Rd",outfile="print_sgmod.Rmd")
+Rd2markdown("sgmodel.Rd",outfile="sgmodel.Rmd")
+Rd2markdown("util.Rd",outfile="util.Rmd")
+Rd2markdown("summary_sgmod.Rd",outfile="summary_sgmod.Rmd")

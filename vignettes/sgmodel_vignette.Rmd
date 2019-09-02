@@ -1,0 +1,47 @@
+---
+title: "Sgmodel_vignette"
+author: "Thomas Vigié"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Sgmodel_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Introduction
+The stochastic growth model is one of the workhorse models in macroeconomics,
+used to analyze intertemporal decision making in the presence of uncertainty.
+Closed form solutions are available for particular values of the parameters,
+often unrealistic. Three main approaches have been used to find its
+solutions: polynomials, first order disturbances and value function
+iteration.  We present its
+solution by value function iteration (actually, iteration on the decision
+rule) for a general set of parameters that the user has to supply.
+
+
+## The solution to a stochastic growth model
+A stochastic growth model is characterized by the presence of exogenous variables (the parameters supplied by the user, such as the discount factor or the depreciation rate) and endogenous variables (variables whose value will be determined by the model, such as savings and consumption decisions). Moreover, among the endogenous variables, there is a distinction to make between control variables and state variables. Control variables are the choice variables that enter the optimization problem, while the state variables are predetermined, and influence the control variables. Hence, the solution to a stochastic growth model will be a path of values for the endogenous variables, $c_{t}$ and $k_{t+1}$, which depend on the value of the state variables. There are two  state variables in this simple model: the capital level at time $t$, $k_{t}$ and the value of the total factor productivity at time $t$, $z_{t}$. The stochastic element of the model comes from $z_{t}$, who follows a stationary $AR(1)$ process in logarithms. This process is discretized using _Rtauchen_, a function that turns a stationary $AR(1)$ process into a finite state Markov chain. The function _sgmodel_ creates a grid of points for the capital level, and a vector of states for $z$ along with the probability transition matrix of the Markov chain. The number of points of the capital grid and the number of states are supplied by the user. The capital grid is built around the nonstochastic steady state value of capital, normalized to one. The solution is then obtained by vectorization, that represents the optimal values of $c_{t}$ and $k_{t+1}$ given $k_{t}$ and $z_{t}$.
+
+## Utility functions
+In economics, the concept of a utility function models people's preferences when making decisions. The Economics literature suggested the use of some functional forms for their properties in different settings. The package includes the most known utility functions, thus allowing the user to obtain the solutions to the stochastic growth model for different preferences. The following tables lists the available utility functions for a given number of goods $n$, a preference parameter \code{prefparam} of $a$ and a constant $A$:
+
+| Type         | Functional form, $n=1$                       | Functional form, $n>1$  
+|--------------|:--------------------------------------------:|-----------------------------
+| Cobb-Douglas | $u\left(x\right)\equiv Ax^{a}$               | $$u\left(x\right)\equiv A\prod_{i=1}^nx_{i}^{a}$$
+| log          | $u\left(x\right)\equiv Aln\left(x\right)$    | $$u\left(x\right)\equiv A\sum_{i=1}^nln(x_{i})$$
+| CES          | $u\left(x\right)\equiv Ax$                   | $$u\left(x\right)\equiv A(\sum_{i=1}^nx_{i}^{\frac{1}{a}})^{a}$$
+| CRRA         | $u\left(x\right)\equiv A\frac{x^{1-a}}{1-a}$ | $$u\left(x\right)\equiv A\sum_{i=1}^n\frac{x_{i}^{1-a}}{1-a}$$
+| CARA         | $u\left(x\right)\equiv Ae^{-ax}$             | $$u\left(x\right)\equiv A\sum_{i=1}^ne^{-ax_{i}}$$
+
+## Moments of a stationary Markov chain
+
+Since the stochastic component of the growth model is discretized through a Markov process in this package, we include a function that computes the unconditional moments of any Markov chain. The user has to supply the states vector with the associated probability transition matrix, and the expectation, variance, autocovariance and autocorrelation are computed after the stationary distribution is derived.

@@ -1,0 +1,39 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit README.Rmd -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# sgmodel
+
+The goal of sgmodel is to solve a standard stochastic growth model in infinite horizon, a workhorse model in macroeconomics. It can bu used to generate data in simulation contexts and to analyze savings and consumption dynamics under different parameters. 
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+grid <- 200
+utiltype <- "CRRA"
+utilparam <- 4
+A <- 1
+depre <- 0.03
+discount <- 0.95
+prod <- 0.3
+states <- 5
+m <- 10
+rho <- 0.2
+sigma <- 0.02
+model <- sgmodel(grid, utiltype, utilparam, A, depre, discount, prod, states, m, rho, sigma)
+
+```
