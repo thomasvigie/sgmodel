@@ -2,6 +2,6 @@
 title: "NEWS"
 output: html_document
 ---
-# sgmodel 1.0
+# sgmodel 1.0.1
 
-This is the first version of the package.
+This is the first version of the package. A minor update was made: "tidyverse" was removed from the imports as only the ggpot2 package is needed.
