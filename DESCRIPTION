@@ -19,7 +19,6 @@ Suggests: knitr,
     testthat
 Imports: ggplot2,
     ramify,
-    Rtauchen,
-    tidyverse	
+    Rtauchen
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
